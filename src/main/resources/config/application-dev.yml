@@ -63,7 +63,7 @@ spring:
     cache: false
 
 server:
-  port: 8080
+  port: 8088
 
 # ===================================================================
 # JHipster specific properties
@@ -114,3 +114,11 @@ jhipster:
 # ===================================================================
 
 # application:
+
+# ==============================================================
+# = Parametri Servizio Modellatore Processi
+# ==============================================================
+modellatoreprocessi:
+  srvUrl: http://localhost:8096/sus/mp/
+  serviceServizio: servizio/
+  serviceAttivita: attivita/

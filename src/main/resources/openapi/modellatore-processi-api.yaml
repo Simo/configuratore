@@ -1,0 +1,232 @@
+openapi: 3.0.0
+info:
+  title: Modellatore Processi
+  x-summary: Modellatore Processi
+  description: Modellatore Processi 
+  version: 1.0.0
+  termsOfService: http://www.fixme.com
+  contact:
+    name: Fixme Contactname
+    url: http://www.fixme.com/
+    email: fixme@insiel.it
+  license:
+    name: Fixme Licence
+    url: http://www.fixme.com/
+  x-audience: fixme
+  x-api-id: it::rafvg::sus::susmp::modellatoreprocessi
+externalDocs:
+  description: Modellatore Processi API docs
+  url: http://www.fixme.com/docs
+paths:
+  /servizio/{codice}:
+    get:
+      tags: 
+      - modellatore processi
+      summary: Fixme aggiungere summmary
+      description: Fixme aggiungere descrizione
+      operationId: servizio-get
+      parameters:
+      - in: path
+        name: codice
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: ruolo
+        schema:
+          type: string
+        required: false
+      - in: header
+        name: locale
+        schema:
+          type: string
+        required: false
+      responses:
+        '200':
+          description: Fixme aggiungere descrizione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/servizio_type'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+  /attivita/{id}:
+    get: 
+      tags: 
+      - modellatore processi
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: restituisci_configurazione
+        schema:
+          type: boolean
+        required: false
+        description: default è false, consente di specificare se si vuole indietro anche la configurazione o no.
+      summary: Fixme aggiungere summmary
+      description: Fixme aggiungere descrizione
+      operationId: attivita-get
+      responses:
+        '200':
+          description: Fixme aggiungere descrizione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/attivita_type'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+servers:
+  - description: Development Server
+    url: 'https://localhost:8095/sus/mp'
+components:
+  schemas:
+    attivita_type:
+      type: object
+      properties:
+        id: 
+          type: string
+          description: fixme indicare descrizione
+        descrizione_ln:
+          type: string
+          description: fixme indicare locale, evitare uso underscore
+        codice_attivita_da_vocabolario_controllato:
+          type: string
+          description: fixme indicare descrizione
+        ruolo:
+          type: string
+          description: ruolo dell'assegnatario della attivita come da vocabolario controllato
+        identificativo_procedimento:
+          type: string
+          description: fixme indicare descrizione
+        entita_concettuale:
+          $ref: '#/components/schemas/entita_concettuale_type'
+        deliverable_out:
+          type: array
+          nullable: false
+          items:
+            $ref: '#/components/schemas/deliverable_type'
+          minItems: 0  
+        configurazione:
+          type: string
+          format: byte
+          description: |
+            contiene la configurazione rappresentata in BASE64.. Ad oggi include la configurazione di entita |
+            contestualizzata ma un domani potrebbero aggiungersi altri elementi quindi lasciamo il nome generico di |
+            configurazione
+      required: 
+        - id
+        - descrizione_ln
+        - codice_attivita_da_vocabolario_controllato
+      additionalProperties: false  
+    deliverable_type:
+        type: object
+        properties:
+          nome_qualificato:
+            type: string
+            description: nome qualificato del deliverable da vocabolario controllato
+            example: segnalazione, visura
+          descrizione_ln: 
+            type: string
+            description: sss
+            example: report della qualita acqua 
+          tipo_contenuto: 
+            type: string
+            description:  enumeration che dovrebbe indicare la forma con cui un deliverable si manifesta
+        required: 
+          - nome_qualificato
+          - tipo_contenuto
+        additionalProperties: false      
+    entita_concettuale_type:
+      type: object
+      properties:
+        nome_qualificato:
+          type: string
+          description: nome qualificato e quindi univoco della entita concettuale nel business catalog
+        nome:
+          type: string
+          description: fixme indicare descrizione
+        descrizione_ln: 
+          type: string
+          description: fixme LOCALE DA APPROFONDIRE
+      required: 
+        - nome_qualificato
+        - nome
+        - descrizione_ln
+      additionalProperties: false  
+    servizio_type:
+      type: object
+      properties:
+        codice_servizio:
+          type: string
+          description: fixme indicare descrizione
+        descrizione_ln: 
+          type: string
+          description: fixme LOCALE DA APPROFONDIRE
+        attivita:
+          type: array
+          nullable: false
+          items:
+            $ref: '#/components/schemas/attivita_type'
+      required: 
+        - codice_servizio
+        - attivita
+      additionalProperties: false  
+    problem-type:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+          description: appresentazione dell'errore secondo lo schema Problem JSON RFC7807
+          default: about:blank
+          example: https://tools.ietf.org/html/rfc7231#section-6.6.4
+        title:
+          type: string
+          description: La descrizione relativa al codice HTTP generato
+          example: Not Found
+        status:
+          type: integer
+          format: int32
+          description: Il codice HTTP generato dal server per questa occorrenza del problema
+          minimum: 100
+          maximum: 600
+          exclusiveMaximum: true
+          example: 404
+        detail:
+          type: string
+          description: Una spiegazione leggibile specifica per questa occorrenza del problema in formato codice-descrizione
+          example: API-002 non esiste nessuna attività corrispondente all'identificativo fornito in input
+        instance:
+          type: string
+          format: uri
+          description: Un riferimento opzionale all'URI che identifica l'occorrenza specifica del problema
+  responses:
+    400BadRequest:
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/problem-type'
+    404NotFound:
+      description: Not Found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/problem-type'
+    500InternalServerError:
+      description: Esito negativo per richiesta non processabile per errore di sistema - Restituisce un json definito nella specifica RFC 7807 contenente tutte le informazioni su un eventuale errore
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/problem-type' 

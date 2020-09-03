@@ -166,3 +166,11 @@ jhipster:
 # ===================================================================
 
 # application:
+
+# ==============================================================
+# = Parametri Servizio Modellatore Processi
+# ==============================================================
+modellatoreprocessi:
+  srvUrl: http://localhost:8096/sus/mp/
+  serviceServizio: servizio/
+  serviceAttivita: attivita/
