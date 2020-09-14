@@ -132,5 +132,16 @@ public class ServiziControllerRest
 		return new ResponseEntity<>(json, HttpStatus.OK);
 		
 	}
+
+	@GetMapping(value = "/pozzi",
+        produces = { "application/json", "application/problem+json" })
+    ResponseEntity<?> getMock() throws Exception {
+
+	    String json = "{\"entita\":{\"nomeQualificato\":\"RISORSE_IDRICHE::Pozzo\",\"nomeContestualizzato\":\"Pozzo ad uso domestico\",\"attributoSemplice\":[{\"nomeQualificato\":\"RISORSE_IDRICHE::Pozzo.DataFineCostruzione\",\"nomeContestualizzato\":\"Anno di costruzione\",\"formato\":\"DATE\",\"configurazioneLogica\":{\"opzioniVisualizzazione\":\"WRITE\",\"obbligatorio\":\"true\",\"cardinalitaMin\":\"1\",\"cardinalitaMax\":\"1\"},\"dimensione\":\"full\",\"posizioneinPagina\":\"last\"},{\"nomeQualificato\":\"RISORSE_IDRICHE::Pozzo.Diametro\",\"nomeContestualizzato\":\"Diametro presunto\",\"formato\":\"NUMBER\",\"configurazioneLogica\":{\"opzioniVisualizzazione\":\"WRITE\",\"obbligatorio\":\"true\",\"cardinalitaMin\":\"1\",\"cardinalitaMax\":\"1\"},\"dimensione\":\"full\",\"posizioneinPagina\":\"last\"},{\"nomeQualificato\":\"RISORSE_IDRICHE::Pozzo.Profondità\",\"nomeContestualizzato\":\"Profondità presunta\",\"formato\":\"NUMBER\",\"configurazioneLogica\":{\"opzioniVisualizzazione\":\"WRITE\",\"obbligatorio\":\"true\",\"cardinalitaMin\":\"1\",\"cardinalitaMax\":\"1\"},\"dimensione\":\"full\",\"posizioneinPagina\":\"last\"}],\"relazione\":{\"nomeRelazione\":\"GEOREFERENZIATO_DA\",\"entita\":{\"nomeQualificato\":\"OGGETTI_GEOMETRICI::Punto\",\"nomeContestualizzato\":\"Coordinate geografiche\",\"attributoSemplice\":[{\"nomeQualificato\":\"OGGETTI_GEOMETRICI::Geometria.Geometria\",\"nomeContestualizzato\":\"Geometria\",\"formato\":\"STRING\",\"configurazioneLogica\":{\"opzioniVisualizzazione\":\"WRITE\",\"obbligatorio\":\"true\",\"cardinalitaMin\":\"1\",\"cardinalitaMax\":\"1\"},\"dimensione\":\"full\",\"posizioneinPagina\":\"last\"},{\"nomeQualificato\":\"OGGETTI_GEOMETRICI::Geometria.Codice\",\"nomeContestualizzato\":\"Codice\",\"formato\":\"STRING\",\"configurazioneLogica\":{\"opzioniVisualizzazione\":\"WRITE\",\"obbligatorio\":\"true\",\"cardinalitaMin\":\"1\",\"cardinalitaMax\":\"1\"},\"dimensione\":\"full\",\"posizioneinPagina\":\"last\"},{\"nomeQualificato\":\"OGGETTI_GEOMETRICI::Geometria.TipoSerializzazione\",\"nomeContestualizzato\":\"Tipo serializzazione\",\"formato\":\"STRING\",\"configurazioneLogica\":{\"opzioniVisualizzazione\":\"WRITE\",\"obbligatorio\":\"true\",\"cardinalitaMin\":\"1\",\"cardinalitaMax\":\"1\"},\"dimensione\":\"full\",\"posizioneinPagina\":\"last\"}]}}}}";
+
+	    logger.debug(json);
+
+        return new ResponseEntity<>(json, HttpStatus.OK);
+    }
 	
 }
