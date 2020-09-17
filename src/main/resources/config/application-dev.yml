@@ -118,7 +118,11 @@ jhipster:
 # ==============================================================
 # = Parametri Servizio Modellatore Processi
 # ==============================================================
+# modellatoreprocessi:
+# srvUrl: http://localhost:8096/sus/mp/
+# serviceServizio: servizio/
+# serviceAttivita: attivita/
 modellatoreprocessi:
-  srvUrl: http://localhost:8096/sus/mp/
+  srvUrl: http://sus-test.insiel.it:8081/APIModellatoreProcessi/
   serviceServizio: servizio/
   serviceAttivita: attivita/
